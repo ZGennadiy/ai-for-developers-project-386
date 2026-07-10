@@ -20,7 +20,7 @@ describe("EventTypesPage", () => {
 
   it("shows an empty state when there are no event types", async () => {
     server.use(
-      http.get("http://localhost:4010/event-types", () => HttpResponse.json({ eventTypes: [] }))
+      http.get("http://localhost:4010/event-types", () => HttpResponse.json([]))
     );
     renderWithProviders(<EventTypesPage />);
 

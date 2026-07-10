@@ -18,7 +18,7 @@ describe("OwnerBookingsPage", () => {
 
   it("shows an empty state when there are no bookings", async () => {
     server.use(
-      http.get("http://localhost:4010/bookings", () => HttpResponse.json({ bookings: [] }))
+      http.get("http://localhost:4010/bookings", () => HttpResponse.json([]))
     );
     renderWithProviders(<OwnerBookingsPage />);
 

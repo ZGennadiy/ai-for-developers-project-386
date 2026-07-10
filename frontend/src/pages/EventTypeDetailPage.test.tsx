@@ -34,7 +34,7 @@ describe("EventTypeDetailPage", () => {
   it("shows an empty state when there are no available slots", async () => {
     server.use(
       http.get("http://localhost:4010/event-types/:eventTypeId/slots", () =>
-        HttpResponse.json({ slots: [] })
+        HttpResponse.json([])
       )
     );
     renderWithProviders(<EventTypeDetailPage />, {

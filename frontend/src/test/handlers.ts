@@ -35,11 +35,9 @@ export const bookingFixture = {
 };
 
 export const handlers = [
-  http.get(`${BASE_URL}/owner`, () => HttpResponse.json({ owner: ownerFixture })),
+  http.get(`${BASE_URL}/owner`, () => HttpResponse.json(ownerFixture)),
 
-  http.get(`${BASE_URL}/event-types`, () =>
-    HttpResponse.json({ eventTypes: eventTypesFixture })
-  ),
+  http.get(`${BASE_URL}/event-types`, () => HttpResponse.json(eventTypesFixture)),
 
   http.get(`${BASE_URL}/event-types/:eventTypeId`, ({ params }) => {
     const eventType = eventTypesFixture.find((item) => item.id === params.eventTypeId);
@@ -49,7 +47,7 @@ export const handlers = [
         { status: 404 }
       );
     }
-    return HttpResponse.json({ eventType });
+    return HttpResponse.json(eventType);
   }),
 
   http.get(`${BASE_URL}/event-types/:eventTypeId/slots`, ({ params }) => {
@@ -60,7 +58,7 @@ export const handlers = [
         { status: 404 }
       );
     }
-    return HttpResponse.json({ slots: slotsFixture });
+    return HttpResponse.json(slotsFixture);
   }),
 
   http.post(`${BASE_URL}/event-types`, async ({ request }) => {
@@ -71,16 +69,14 @@ export const handlers = [
         { status: 409 }
       );
     }
-    return HttpResponse.json({ created: body }, { status: 201 });
+    return HttpResponse.json(body, { status: 201 });
   }),
 
   http.post(`${BASE_URL}/bookings`, () =>
-    HttpResponse.json({ created: bookingFixture }, { status: 201 })
+    HttpResponse.json(bookingFixture, { status: 201 })
   ),
 
-  http.get(`${BASE_URL}/bookings`, () =>
-    HttpResponse.json({ bookings: [bookingFixture] })
-  ),
+  http.get(`${BASE_URL}/bookings`, () => HttpResponse.json([bookingFixture])),
 
   http.get(`${BASE_URL}/bookings/:bookingId`, ({ params }) => {
     if (params.bookingId !== bookingFixture.id) {
@@ -89,6 +85,6 @@ export const handlers = [
         { status: 404 }
       );
     }
-    return HttpResponse.json({ booking: bookingFixture });
+    return HttpResponse.json(bookingFixture);
   }),
 ];
