@@ -4,6 +4,7 @@ import { useEventType } from "@/hooks/useEventTypes";
 import { useSlots } from "@/hooks/useSlots";
 import { useOwner } from "@/hooks/useOwner";
 import { SlotsCalendar } from "@/components/slots/SlotsCalendar";
+import { BookingDialog } from "@/components/bookings/BookingDialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Slot } from "@/lib/api/types";
 
@@ -47,11 +48,7 @@ export function EventTypeDetailPage() {
         <SlotsCalendar slots={slotsQuery.data} timeZone={timeZone} onSelect={setSelectedSlot} />
       )}
 
-      {selectedSlot && (
-        <p className="text-sm text-muted-foreground" data-testid="selected-slot">
-          Выбран слот: {selectedSlot.start}
-        </p>
-      )}
+      <BookingDialog eventTypeId={id} slot={selectedSlot} onClose={() => setSelectedSlot(null)} />
     </div>
   );
 }
