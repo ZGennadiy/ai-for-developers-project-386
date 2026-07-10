@@ -34,24 +34,45 @@ npx tsp compile spec/main.tsp --emit @typespec/openapi3
 
 Результат — `tsp-output/@typespec/openapi3/openapi.yaml`.
 
+## Бэкенд
+
+Реальный сервер в каталоге [backend/](backend) — реализация контракта на Go
+(стандартная библиотека, без фреймворка), хранение в памяти (сбрасывается при
+перезапуске). Реализует бизнес-правила: глобальную занятость слота (`409`) и
+14-дневное окно записи с рабочими часами `09:00–18:00`, Пн–Пт, в `Owner.timeZone`
+(`422`).
+
+```bash
+cd backend
+go run .          # слушает http://localhost:3000
+go test ./...     # unit- и http-тесты, включая конкурентную бронь слота
+```
+
+Переменные окружения: `PORT` (по умолчанию `3000`), `FRONTEND_ORIGIN`
+(по умолчанию `http://localhost:5173`, для CORS).
+
 ## Фронтенд
 
 UI в каталоге [frontend/](frontend) — React + TypeScript + shadcn/ui, реализует
 все сценарии контракта. Подробности запуска — в [frontend/README.md](frontend/README.md).
 
-Для разработки фронтенда без реального бэкенда используется Prism, поднятый
-из контракта:
-
-```bash
-npm install
-npm run spec:compile
-npm run mock          # запускает Prism на http://localhost:4010
-```
-
-Затем в отдельном терминале:
+По умолчанию `frontend/.env` указывает на Prism-мок (`http://localhost:4010`,
+см. ниже) — так исторически настроены фронтенд-тесты (MSW перехватывает запросы
+именно на этот адрес). Чтобы фронтенд работал с реальным бэкендом, поменяйте
+в `frontend/.env` значение на `VITE_API_BASE_URL=http://localhost:3000`
+(бэкенд поднят — см. раздел «Бэкенд» выше), затем:
 
 ```bash
 cd frontend
 npm install
 npm run dev
+```
+
+Чтобы вместо этого разрабатывать фронтенд изолированно, без бэкенда, — поднимите
+Prism-мок из контракта (адрес по умолчанию в `.env` уже на него указывает):
+
+```bash
+npm install
+npm run spec:compile
+npm run mock          # запускает Prism на http://localhost:4010
 ```
