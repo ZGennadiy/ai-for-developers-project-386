@@ -33,3 +33,25 @@ npx tsp compile spec/main.tsp --emit @typespec/openapi3
 ```
 
 Результат — `tsp-output/@typespec/openapi3/openapi.yaml`.
+
+## Фронтенд
+
+UI в каталоге [frontend/](frontend) — React + TypeScript + shadcn/ui, реализует
+все сценарии контракта. Подробности запуска — в [frontend/README.md](frontend/README.md).
+
+Для разработки фронтенда без реального бэкенда используется Prism, поднятый
+из контракта:
+
+```bash
+npm install
+npm run spec:compile
+npm run mock          # запускает Prism на http://localhost:4010
+```
+
+Затем в отдельном терминале:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```

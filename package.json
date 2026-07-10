@@ -1,0 +1,30 @@
+{
+  "name": "ai-for-developers-project-386",
+  "version": "1.0.0",
+  "description": "Booking calendar service — TypeSpec API contract and dev tooling",
+  "private": true,
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "spec:compile": "tsp compile spec/main.tsp --emit @typespec/openapi3",
+    "mock": "prism mock tsp-output/@typespec/openapi3/openapi.yaml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZGennadiy/ai-for-developers-project-386.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZGennadiy/ai-for-developers-project-386/issues"
+  },
+  "homepage": "https://github.com/ZGennadiy/ai-for-developers-project-386#readme",
+  "devDependencies": {
+    "@stoplight/prism-cli": "^5.14.2",
+    "@typespec/compiler": "^1.13.0",
+    "@typespec/http": "^1.13.0",
+    "@typespec/openapi3": "^1.13.0"
+  }
+}
