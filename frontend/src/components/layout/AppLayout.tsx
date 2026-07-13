@@ -1,6 +1,9 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useOwner } from "@/hooks/useOwner";
 
+const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+  isActive ? "font-medium text-primary" : "text-muted-foreground";
+
 export function AppLayout() {
   const location = useLocation();
   const isOwnerSection = location.pathname.startsWith("/owner");
@@ -15,17 +18,13 @@ export function AppLayout() {
             <NavLink
               to="/"
               end
-              className={({ isActive }) =>
-                isActive ? "font-medium text-primary" : "text-muted-foreground"
-              }
+              className={navLinkClass}
             >
               Каталог
             </NavLink>
             <NavLink
               to="/owner"
-              className={({ isActive }) =>
-                isActive ? "font-medium text-primary" : "text-muted-foreground"
-              }
+              className={navLinkClass}
             >
               Кабинет владельца
             </NavLink>

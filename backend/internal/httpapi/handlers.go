@@ -12,10 +12,6 @@ type Handler struct {
 	store *booking.Store
 }
 
-func NewHandler(store *booking.Store) *Handler {
-	return &Handler{store: store}
-}
-
 func writeJSON(w http.ResponseWriter, status int, body any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
@@ -30,12 +26,11 @@ func writeError(w http.ResponseWriter, status int, code, message string) {
 // contract's HTTP status + ApiError body. Falls back to 500 for anything
 // unrecognized (e.g. a bug elsewhere), since the contract has no slot for it.
 func writeDomainError(w http.ResponseWriter, err error) {
-	status, ok := booking.HTTPStatus(err)
+	status, code, ok := booking.Lookup(err)
 	if !ok {
 		writeError(w, http.StatusInternalServerError, "internal_error", err.Error())
 		return
 	}
-	code, _ := booking.Code(err)
 	writeError(w, status, code, err.Error())
 }
 

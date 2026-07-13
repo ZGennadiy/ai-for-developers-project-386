@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cmp"
 	"log"
 	"net/http"
 	"os"
@@ -9,17 +10,10 @@ import (
 	"backend/internal/httpapi"
 )
 
-func getenv(key, fallback string) string {
-	if v := os.Getenv(key); v != "" {
-		return v
-	}
-	return fallback
-}
-
 func main() {
-	port := getenv("PORT", "3000")
-	corsOrigin := getenv("FRONTEND_ORIGIN", "http://localhost:5173")
-	staticDir := getenv("STATIC_DIR", "")
+	port := cmp.Or(os.Getenv("PORT"), "3000")
+	corsOrigin := cmp.Or(os.Getenv("FRONTEND_ORIGIN"), "http://localhost:5173")
+	staticDir := os.Getenv("STATIC_DIR")
 
 	store := booking.NewStore()
 	router := httpapi.NewRouter(store, corsOrigin, staticDir)

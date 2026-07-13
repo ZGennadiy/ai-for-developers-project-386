@@ -9,7 +9,7 @@ import (
 // newAPIMux wires the contract's 8 endpoints to their handlers, unprefixed,
 // exactly matching the TypeSpec contract's documented paths.
 func newAPIMux(store *booking.Store) *http.ServeMux {
-	h := NewHandler(store)
+	h := &Handler{store: store}
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /owner", h.GetOwner)
