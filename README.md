@@ -13,6 +13,8 @@
   бронирование) и правила бронирования.
 - [docs/agent-task.md](docs/agent-task.md) — задача для ИИ-агента, генерирующего контракт.
 - [docs/coverage.md](docs/coverage.md) — матрица покрытия: сценарий → эндпоинт.
+- [docs/e2e-scenarios.md](docs/e2e-scenarios.md) — сквозные сценарии, проверяемые
+  Playwright-тестами в [frontend/e2e](frontend/e2e).
 
 ## API-контракт (TypeSpec)
 
