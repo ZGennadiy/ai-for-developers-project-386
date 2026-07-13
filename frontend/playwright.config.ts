@@ -32,7 +32,7 @@ export default defineConfig({
     {
       command: "go run .",
       cwd: "../backend",
-      url: `${BACKEND_URL}/owner`,
+      url: `${BACKEND_URL}/api/owner`,
       env: { PORT: "3000", FRONTEND_ORIGIN: FRONTEND_URL },
       timeout: 120_000,
       reuseExistingServer: !process.env.CI,
@@ -40,7 +40,7 @@ export default defineConfig({
     {
       command: "npm run dev -- --port 5173 --strictPort",
       url: FRONTEND_URL,
-      env: { VITE_API_BASE_URL: BACKEND_URL },
+      env: { VITE_API_BASE_URL: `${BACKEND_URL}/api` },
       timeout: 120_000,
       reuseExistingServer: !process.env.CI,
     },

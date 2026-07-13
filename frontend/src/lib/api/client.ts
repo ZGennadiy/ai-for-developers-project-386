@@ -21,7 +21,7 @@ interface RequestOptions {
 }
 
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
-  const url = new URL(path, BASE_URL);
+  const url = new URL(BASE_URL + path, window.location.origin);
   if (options.searchParams) {
     for (const [key, value] of Object.entries(options.searchParams)) {
       if (value !== undefined) url.searchParams.set(key, value);
