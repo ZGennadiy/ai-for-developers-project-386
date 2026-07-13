@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { useEventType } from "@/hooks/useEventTypes";
-import { useSlots } from "@/hooks/useSlots";
 import { useOwner } from "@/hooks/useOwner";
+import { listAvailableSlots } from "@/lib/api/slots";
 import { SlotsCalendar } from "@/components/slots/SlotsCalendar";
 import { BookingDialog } from "@/components/bookings/BookingDialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -12,7 +13,10 @@ export function EventTypeDetailPage() {
   const { eventTypeId } = useParams<{ eventTypeId: string }>();
   const id = eventTypeId!;
   const eventTypeQuery = useEventType(id);
-  const slotsQuery = useSlots(id);
+  const slotsQuery = useQuery({
+    queryKey: ["event-types", id, "slots"],
+    queryFn: () => listAvailableSlots(id),
+  });
   const ownerQuery = useOwner();
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
 

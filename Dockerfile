@@ -14,7 +14,6 @@ COPY backend/ ./
 RUN CGO_ENABLED=0 go build -o /out/server .
 
 FROM alpine:3.22
-RUN apk add --no-cache ca-certificates
 WORKDIR /app
 COPY --from=backend-build /out/server ./server
 COPY --from=frontend-build /app/frontend/dist ./static
