@@ -12,7 +12,7 @@ import (
 )
 
 func newTestRouter() http.Handler {
-	return NewRouter(booking.NewStore(), "http://localhost:5173")
+	return withRecover(withCORS("http://localhost:5173", newAPIMux(booking.NewStore())))
 }
 
 func doRequest(t *testing.T, router http.Handler, method, path string, body any) *httptest.ResponseRecorder {
